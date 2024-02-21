@@ -1,8 +1,10 @@
-const blankTile = "3.jpg";
+const blankTileId = "0-2";
 let userTile;
 let otherTile;
-let xPosition;
-let yPosition;
+let userXPosition;
+let userYPosition;
+let otherXPosition;
+let otherYPosition;
 
 const game3x3 = document.querySelector(".game-3x3");
 
@@ -37,9 +39,7 @@ const renderBoard = () => {
   const dragEnter = (e) => {
     e.preventDefault();
   };
-  const dragLeave = (e) => {
-    if (otherTile !== blankTile) return;
-  };
+  const dragLeave = (e) => {};
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -51,19 +51,21 @@ const renderBoard = () => {
   const drop = (e) => {
     console.log("drop");
     otherTile = e.target;
-    console.log(otherTile);
-    console.log(userTile.parentNode);
+
     const userTileParent = userTile.parentNode;
     const otherTileParent = otherTile.parentNode;
-    userTileParent.replaceChild(otherTile, userTile);
-    otherTileParent.appendChild(userTile);
-  };
 
-  // const getTilePosition = (id) => {
-  //   const position = id.split("-");
-  //   xPosition = position[0];
-  //   yPosition = position[1];
-  // };
+    if (
+      otherTile.id === blankTileId &&
+      (isAdjacentLeft(userTileParent.id, otherTileParent.id) ||
+        isAdjacentRight(userTileParent.id, otherTileParent.id) ||
+        isAdjacentTop(userTileParent.id, otherTileParent.id) ||
+        isAdjacentBottom(userTileParent.id, otherTileParent.id))
+    ) {
+      userTileParent.replaceChild(otherTile, userTile);
+      otherTileParent.appendChild(userTile);
+    }
+  };
 
   // create images
   for (let i = 0; i < row; i++) {
@@ -92,6 +94,50 @@ const renderBoard = () => {
       tile.addEventListener("drop", drop);
     }
   }
+};
+
+const getDivTilePosition = (tile, divId) => {
+  const position = divId.split("-");
+
+  if (tile === "user") {
+    userXPosition = parseInt(position[1]);
+    userYPosition = parseInt(position[2]);
+  } else if (tile === "other") {
+    otherXPosition = parseInt(position[1]);
+    otherYPosition = parseInt(position[2]);
+  }
+};
+
+const isAdjacentLeft = (divUserTileId, divOtherTileId) => {
+  getDivTilePosition("user", divUserTileId);
+  getDivTilePosition("other", divOtherTileId);
+
+  if (userXPosition === otherXPosition && userYPosition === otherYPosition - 1)
+    return true;
+};
+
+const isAdjacentRight = (divUserTileId, divOtherTileId) => {
+  getDivTilePosition("user", divUserTileId);
+  getDivTilePosition("other", divOtherTileId);
+
+  if (userXPosition === otherXPosition && userYPosition === otherYPosition + 1)
+    return true;
+};
+
+const isAdjacentTop = (divUserTileId, divOtherTileId) => {
+  getDivTilePosition("user", divUserTileId);
+  getDivTilePosition("other", divOtherTileId);
+
+  if (userXPosition === otherXPosition - 1 && userYPosition === otherYPosition)
+    return true;
+};
+
+const isAdjacentBottom = (divUserTileId, divOtherTileId) => {
+  getDivTilePosition("user", divUserTileId);
+  getDivTilePosition("other", divOtherTileId);
+
+  if (userXPosition === otherXPosition + 1 && userYPosition === otherYPosition)
+    return true;
 };
 
 renderBoard();
