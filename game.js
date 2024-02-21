@@ -5,7 +5,11 @@ let userXPosition;
 let userYPosition;
 let otherXPosition;
 let otherYPosition;
+let turnCounter = 0;
+let timerCounter = 60;
 
+const turns = document.querySelector(".turns");
+const timer = document.querySelector(".timer");
 const game3x3 = document.querySelector(".game-3x3");
 
 const gameType = "3x3";
@@ -64,6 +68,8 @@ const renderBoard = () => {
     ) {
       userTileParent.replaceChild(otherTile, userTile);
       otherTileParent.appendChild(userTile);
+      turnCounter += 1;
+      turns.innerHTML = `Turns: ${turnCounter}`;
     }
   };
 
@@ -140,4 +146,15 @@ const isAdjacentBottom = (divUserTileId, divOtherTileId) => {
     return true;
 };
 
-renderBoard();
+const countdown = setInterval(() => {
+  timerCounter--;
+  console.log(timerCounter);
+  timer.innerHTML = `Time: ${timerCounter} s`;
+  if (timerCounter === 0) {
+    clearInterval(countdown);
+  }
+}, 1000);
+
+renderBoard(() => {
+  countdown();
+});
