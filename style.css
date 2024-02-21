@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: fantasy;
+  background-image: url("./assets/background/toy-story-cloud.jpg");
+  background-size: contain;
+  height: 100vh;
+}
+
+.luckiest-guy-regular {
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.container {
+  height: 80vh;
+  text-align: center;
+}
+
+.toy-puzzle {
+  width: 50%;
+  margin-top: 70px;
+  /* position: relative; */
+}
+
+button {
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 2.2em;
+  color: white;
+  position: absolute;
+  cursor: pointer;
+}
+
+.zoom-in-zoom-out {
+  animation: zoom-in-zoom-out 1s ease infinite;
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.5, 1.5);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+#how-to-play {
+  left: 100px;
+  bottom: 160px;
+}
+
+#start-game {
+  right: 100px;
+  bottom: 160px;
+}
+
+/* game-3x3 */
+.level-1 {
+  width: 25%;
+  margin-top: 30px;
+  margin-bottom: -100px;
+  /* position: absolute;
+  z-index: 10; */
+}
+
+.white-box {
+  width: 70%;
+  height: 80%;
+  background-color: white;
+  margin: auto;
+  border-radius: 15px;
+  /* position: relative; */
+  padding-top: 60px;
+}
+
+.game-3x3 {
+  border: 5px solid #53a6cc;
+  margin: auto;
+  margin-top: 40px;
+  width: 250px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
