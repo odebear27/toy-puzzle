@@ -66,7 +66,7 @@ button {
 .level-1 {
   width: 25%;
   margin-top: 30px;
-  margin-bottom: -100px;
+  margin-bottom: -90px;
   /* position: absolute;
   z-index: 10; */
 }
@@ -92,7 +92,7 @@ button {
 }
 
 .timer {
-  margin: 0px 100px 0px 400px;
+  margin: 0px 100px 0px 390px;
   color: #53a6cc;
   text-align: right;
 }
@@ -105,4 +105,14 @@ button {
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+/* you-win */
+.you-win {
+  display: none;
+}
+
+/* game-over */
+.game-over {
+  display: none;
 }

@@ -7,7 +7,12 @@ let otherXPosition;
 let otherYPosition;
 let turnCounter = 0;
 let timerCounter = 60;
+let noOfTilesMatch = 0;
+const correctNoOfTilesMatch = 9; // for 3x3game
 
+const gameScreen = document.querySelector(".game");
+const gameOverScreen = document.querySelector(".game-over");
+const youWinScreen = document.querySelector(".you-win");
 const turns = document.querySelector(".turns");
 const timer = document.querySelector(".timer");
 const game3x3 = document.querySelector(".game-3x3");
@@ -17,7 +22,8 @@ const row = 3;
 const col = 3;
 let imageFolder = "";
 
-const imgOrder = ["4", "1", "3", "2", "5", "6", "7", "8", "9"];
+// const imgOrder = ["4", "1", "3", "2", "5", "6", "7", "8", "9"];
+const imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 const renderBoard = () => {
   // let computer choose random 3x3 imageFolder
@@ -70,6 +76,8 @@ const renderBoard = () => {
       otherTileParent.appendChild(userTile);
       turnCounter += 1;
       turns.innerHTML = `Turns: ${turnCounter}`;
+      youWin();
+      noOfTilesMatch = 0;
     }
   };
 
@@ -152,8 +160,37 @@ const countdown = setInterval(() => {
   timer.innerHTML = `Time: ${timerCounter} s`;
   if (timerCounter === 0) {
     clearInterval(countdown);
+    youWin();
+    if (noOfTilesMatch !== correctNoOfTilesMatch) {
+      gameScreen.style.display = "none";
+      gameOverScreen.style.display = "block";
+    }
   }
 }, 1000);
+
+// win logic
+// console.log(typeof game3x3.children);
+// console.log(game3x3.children);
+// const { id, firstChild } = game3x3.children;
+// console.log(id);
+
+const youWin = () => {
+  for (const divTile of game3x3.children) {
+    console.log(divTile.id);
+    console.log(divTile.id.slice(4));
+    if (divTile.id.slice(4) === divTile.firstChild.id) {
+      console.log(`${divTile.id} is at correct position`);
+      noOfTilesMatch++;
+    }
+  }
+  console.log(`no of tiles match: ${noOfTilesMatch}`);
+  if (noOfTilesMatch === correctNoOfTilesMatch && timerCounter > 0) {
+    console.log(true);
+    clearInterval(countdown);
+    gameScreen.style.display = "none";
+    youWinScreen.style.display = "block";
+  }
+};
 
 renderBoard(() => {
   countdown();
