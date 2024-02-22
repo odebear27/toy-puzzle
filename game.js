@@ -6,16 +6,19 @@ let userYPosition;
 let otherXPosition;
 let otherYPosition;
 let turnCounter = 0;
-let timerCounter = 60;
+let timerCounter = 3;
 let noOfTilesMatch = 0;
 const correctNoOfTilesMatch = 9; // for 3x3game
 
 const gameScreen = document.querySelector(".game");
-const gameOverScreen = document.querySelector(".game-over");
+const gameOverScreen = document.querySelector(".game-over-screen");
 const youWinScreen = document.querySelector(".you-win");
+const whiteBoxYouWin = document.querySelector(".white-box-you-win");
 const finishedImageContainer = document.querySelector(
   ".finished-image-container"
 );
+const gameOver = document.querySelector(".game-over");
+const tryAgainButton = document.querySelector(".try-again");
 const turns = document.querySelector(".turns");
 const timer = document.querySelector(".timer");
 const game3x3 = document.querySelector(".game-3x3");
@@ -26,6 +29,7 @@ const col = 3;
 let imageFolder = "";
 let imageName = "";
 
+// stretch goal: randomly generate the imgOrder
 // const imgOrder = ["4", "1", "3", "2", "5", "6", "7", "8", "9"];
 const imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
@@ -64,6 +68,7 @@ const renderBoard = () => {
     userTile = e.target;
     console.log(userTile);
   };
+
   const drop = (e) => {
     console.log("drop");
     otherTile = e.target;
@@ -160,25 +165,40 @@ const isAdjacentBottom = (divUserTileId, divOtherTileId) => {
     return true;
 };
 
-const countdown = setInterval(() => {
+const countdownLogic = () => {
   timerCounter--;
   console.log(timerCounter);
   timer.innerHTML = `Time: ${timerCounter} s`;
+
+  // game has ended
   if (timerCounter === 0) {
     clearInterval(countdown);
     youWin();
     if (noOfTilesMatch !== correctNoOfTilesMatch) {
+      // hide game screen and display game over screen
       gameScreen.style.display = "none";
       gameOverScreen.style.display = "block";
+
+      // create main menu button
+      // const mainMenu = document.createElement("a");
+      // mainMenu.href = "index.html";
+
+      // const mainMenuButton = document.createElement("button");
+      // mainMenuButton.innerText = "<<< MAIN MENU";
+      // mainMenuButton.style.color = "#53a6cc";
+      // mainMenuButton.style.marginTop = "250px";
+      // mainMenuButton.style.marginLeft = "-100px";
+      // mainMenuButton.classList.add("luckiest-guy-regular");
+      // mainMenu.appendChild(mainMenuButton);
+      // gameOver.appendChild(mainMenu);
+
+      // click to try again
+      tryAgainButton.addEventListener("click", tryAgain);
     }
   }
-}, 1000);
+};
 
-// win logic
-// console.log(typeof game3x3.children);
-// console.log(game3x3.children);
-// const { id, firstChild } = game3x3.children;
-// console.log(id);
+const countdown = setInterval(countdownLogic, 1000);
 
 const youWin = () => {
   for (const divTile of game3x3.children) {
@@ -194,6 +214,7 @@ const youWin = () => {
     console.log(true);
     clearInterval(countdown);
 
+    // hide game screen and display you win screen
     gameScreen.style.display = "none";
     youWinScreen.style.display = "block";
 
@@ -233,20 +254,35 @@ const youWin = () => {
     finishedImageContainer.appendChild(finishedImage);
 
     // create next level button
-    // const nextLevel = document.createElement("a");
+    const nextLevel = document.createElement("a");
     // nextLevel.href = "index.html";
 
-    // const nextLevelButton = document.createElement("button");
-    // nextLevelButton.innerText = "NEXT LEVEL >>>";
-    // nextLevelButton.style.color = "#53a6cc";
-    // nextLevelButton.style.marginTop = "200px";
-    // nextLevelButton.style.marginLeft = "10px";
-    // nextLevelButton.classList.add("luckiest-guy-regular");
-    // nextLevel.appendChild(nextLevelButton);
-    // finishedImageContainer.appendChild(nextLevel);
+    const nextLevelButton = document.createElement("button");
+    nextLevelButton.innerText = "NEXT LEVEL >>>";
+    nextLevelButton.style.color = "#53a6cc";
+    nextLevelButton.style.marginTop = "-40px";
+    nextLevelButton.style.marginLeft = "190px";
+    nextLevelButton.classList.add("luckiest-guy-regular");
+    nextLevel.appendChild(nextLevelButton);
+    whiteBoxYouWin.appendChild(nextLevel);
   }
 };
 
-renderBoard(() => {
-  countdown();
-});
+const tryAgain = () => {
+  gameOverScreen.style.display = "none";
+  gameScreen.style.display = "block";
+  resetGame();
+};
+
+const resetGame = () => {
+  turnCounter = 0;
+  timerCounter = 60;
+  noOfTilesMatch = 0;
+
+  turns.innerHTML = `Turns: ${turnCounter}`;
+  timer.innerHTML = `Time: ${timerCounter}`;
+  clearInterval(countdown);
+  countdown = setInterval(countdownLogic, 1000);
+};
+
+renderBoard();

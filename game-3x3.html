@@ -33,21 +33,25 @@
         src="./assets/toy-story-header/YOU-WIN.png"
         alt="YOU WIN"
       />
-      <div class="white-box">
-        <div class="info"></div>
-        <!-- <a href="index.html">
-          <button class="luckiest-guy-regular" id="main-menu" type="button">
-            &lt;&lt;&lt; MAIN MENU
-          </button>
-        </a> -->
+      <div class="white-box white-box-you-win">
         <div class="finished-image-container"></div>
-        <button class="luckiest-guy-regular next-level" type="button">
-          NEXT LEVEL >>>
-        </button>
       </div>
     </div>
-    <div class="game-over container">
-      <h1>game over</h1>
+    <div class="game-over-screen container">
+      <img
+        class="header game-over-header"
+        src="./assets/toy-story-header/GAME-OVER.png"
+        alt="GAME OVER"
+      />
+      <div class="white-box game-over">
+        <h1>YOU DID NOT FIX THE PUZZLE</h1>
+        <button class="luckiest-guy-regular main-menu blue" type="button">
+          &lt;&lt;&lt; MAIN MENU
+        </button>
+        <button class="luckiest-guy-regular try-again blue" type="button">
+          TRY AGAIN >>>
+        </button>
+      </div>
     </div>
     <script src="game.js"></script>
   </body>
