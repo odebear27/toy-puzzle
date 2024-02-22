@@ -13,6 +13,9 @@ const correctNoOfTilesMatch = 9; // for 3x3game
 const gameScreen = document.querySelector(".game");
 const gameOverScreen = document.querySelector(".game-over");
 const youWinScreen = document.querySelector(".you-win");
+const finishedImageContainer = document.querySelector(
+  ".finished-image-container"
+);
 const turns = document.querySelector(".turns");
 const timer = document.querySelector(".timer");
 const game3x3 = document.querySelector(".game-3x3");
@@ -21,13 +24,16 @@ const gameType = "3x3";
 const row = 3;
 const col = 3;
 let imageFolder = "";
+let imageName = "";
 
 // const imgOrder = ["4", "1", "3", "2", "5", "6", "7", "8", "9"];
 const imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
+const randomImage = Math.floor(Math.random() * 3);
+
 const renderBoard = () => {
   // let computer choose random 3x3 imageFolder
-  const randomImage = Math.floor(Math.random() * 3);
+  // const randomImage = Math.floor(Math.random() * 3);
 
   switch (randomImage) {
     case 0:
@@ -187,8 +193,57 @@ const youWin = () => {
   if (noOfTilesMatch === correctNoOfTilesMatch && timerCounter > 0) {
     console.log(true);
     clearInterval(countdown);
+
     gameScreen.style.display = "none";
     youWinScreen.style.display = "block";
+
+    // create main menu button
+    const mainMenu = document.createElement("a");
+    mainMenu.href = "index.html";
+
+    const mainMenuButton = document.createElement("button");
+    mainMenuButton.innerText = "<<< MAIN MENU";
+    mainMenuButton.style.color = "#53a6cc";
+    mainMenuButton.style.marginTop = "250px";
+    mainMenuButton.style.marginLeft = "10px";
+    mainMenuButton.classList.add("luckiest-guy-regular");
+    mainMenu.appendChild(mainMenuButton);
+    finishedImageContainer.appendChild(mainMenu);
+
+    // create and display the finished image
+    switch (randomImage) {
+      case 0:
+        imageName = "alien.jpg";
+        break;
+      case 1:
+        imageName = "buzz-lightyear.jpg";
+        break;
+      case 2:
+        imageName = "mr-potato-head.jpg";
+        break;
+    }
+
+    const finishedImage = document.createElement("img");
+    finishedImage.src = `assets/finished-image/${imageName}`;
+    finishedImage.style.width = "250px";
+    finishedImage.style.border = "5px solid #53a6cc";
+    finishedImage.style.margin = "auto";
+    finishedImage.style.marginTop = "40px";
+
+    finishedImageContainer.appendChild(finishedImage);
+
+    // create next level button
+    // const nextLevel = document.createElement("a");
+    // nextLevel.href = "index.html";
+
+    // const nextLevelButton = document.createElement("button");
+    // nextLevelButton.innerText = "NEXT LEVEL >>>";
+    // nextLevelButton.style.color = "#53a6cc";
+    // nextLevelButton.style.marginTop = "200px";
+    // nextLevelButton.style.marginLeft = "10px";
+    // nextLevelButton.classList.add("luckiest-guy-regular");
+    // nextLevel.appendChild(nextLevelButton);
+    // finishedImageContainer.appendChild(nextLevel);
   }
 };
 

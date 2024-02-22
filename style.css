@@ -63,12 +63,15 @@ button {
 }
 
 /* game-3x3 */
-.level-1 {
-  width: 25%;
+.header {
   margin-top: 30px;
   margin-bottom: -90px;
   /* position: absolute;
   z-index: 10; */
+}
+
+.level-1 {
+  width: 25%;
 }
 
 .white-box {
@@ -110,6 +113,24 @@ button {
 /* you-win */
 .you-win {
   display: none;
+}
+
+.you-win-header {
+  width: 28%;
+}
+
+.finished-image-container {
+  display: flex;
+}
+
+/* #main-menu {
+  color: #53a6cc;
+  margin-top: 250px;
+  margin-left: -50px;
+} */
+
+.next-level {
+  color: #53a6cc;
 }
 
 /* game-over */
