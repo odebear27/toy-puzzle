@@ -6,7 +6,7 @@ let userYPosition;
 let otherXPosition;
 let otherYPosition;
 let turnCounter = 0;
-let timerCounter = 3;
+let timerCounter = 60;
 let noOfTilesMatch = 0;
 const correctNoOfTilesMatch = 9; // for 3x3game
 
@@ -30,15 +30,13 @@ let imageFolder = "";
 let imageName = "";
 
 // stretch goal: randomly generate the imgOrder
-// const imgOrder = ["4", "1", "3", "2", "5", "6", "7", "8", "9"];
-const imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const imgOrder = ["6", "1", "3", "2", "5", "9", "7", "8", "4"];
+// const imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
+// let computer choose random 3x3 imageFolder
 const randomImage = Math.floor(Math.random() * 3);
 
 const renderBoard = () => {
-  // let computer choose random 3x3 imageFolder
-  // const randomImage = Math.floor(Math.random() * 3);
-
   switch (randomImage) {
     case 0:
       imageFolder = "alien-3x3";
@@ -66,7 +64,6 @@ const renderBoard = () => {
   const dragStart = (e) => {
     console.log("dragStart");
     userTile = e.target;
-    console.log(userTile);
   };
 
   const drop = (e) => {
@@ -107,7 +104,6 @@ const renderBoard = () => {
 
       game3x3.appendChild(tileDiv);
       tileDiv.appendChild(tile);
-      console.log(tile.id);
 
       // drag functionality
       tile.addEventListener("drag", drag);
@@ -167,7 +163,6 @@ const isAdjacentBottom = (divUserTileId, divOtherTileId) => {
 
 const countdownLogic = () => {
   timerCounter--;
-  console.log(timerCounter);
   timer.innerHTML = `Time: ${timerCounter} s`;
 
   // game has ended
@@ -179,19 +174,6 @@ const countdownLogic = () => {
       gameScreen.style.display = "none";
       gameOverScreen.style.display = "block";
 
-      // create main menu button
-      // const mainMenu = document.createElement("a");
-      // mainMenu.href = "index.html";
-
-      // const mainMenuButton = document.createElement("button");
-      // mainMenuButton.innerText = "<<< MAIN MENU";
-      // mainMenuButton.style.color = "#53a6cc";
-      // mainMenuButton.style.marginTop = "250px";
-      // mainMenuButton.style.marginLeft = "-100px";
-      // mainMenuButton.classList.add("luckiest-guy-regular");
-      // mainMenu.appendChild(mainMenuButton);
-      // gameOver.appendChild(mainMenu);
-
       // click to try again
       tryAgainButton.addEventListener("click", tryAgain);
     }
@@ -202,16 +184,11 @@ const countdown = setInterval(countdownLogic, 1000);
 
 const youWin = () => {
   for (const divTile of game3x3.children) {
-    console.log(divTile.id);
-    console.log(divTile.id.slice(4));
     if (divTile.id.slice(4) === divTile.firstChild.id) {
-      console.log(`${divTile.id} is at correct position`);
       noOfTilesMatch++;
     }
   }
-  console.log(`no of tiles match: ${noOfTilesMatch}`);
   if (noOfTilesMatch === correctNoOfTilesMatch && timerCounter > 0) {
-    console.log(true);
     clearInterval(countdown);
 
     // hide game screen and display you win screen
@@ -253,15 +230,17 @@ const youWin = () => {
 
     finishedImageContainer.appendChild(finishedImage);
 
-    // create next level button
+    // create next level button for future use
     const nextLevel = document.createElement("a");
-    // nextLevel.href = "index.html";
+    nextLevel.href = "";
 
     const nextLevelButton = document.createElement("button");
     nextLevelButton.innerText = "NEXT LEVEL >>>";
     nextLevelButton.style.color = "#53a6cc";
     nextLevelButton.style.marginTop = "-40px";
     nextLevelButton.style.marginLeft = "190px";
+    // set display to none first since no next level game ready
+    nextLevelButton.style.display = "none";
     nextLevelButton.classList.add("luckiest-guy-regular");
     nextLevel.appendChild(nextLevelButton);
     whiteBoxYouWin.appendChild(nextLevel);

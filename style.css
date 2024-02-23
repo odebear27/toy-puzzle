@@ -15,6 +15,10 @@ body {
   color: #53a6cc;
 }
 
+.text-blue {
+  color: #004d99;
+}
+
 .luckiest-guy-regular {
   font-family: "Luckiest Guy", cursive;
   font-weight: 400;
@@ -29,7 +33,6 @@ body {
 .toy-puzzle {
   width: 50%;
   margin-top: 70px;
-  /* position: relative; */
 }
 
 button {
@@ -71,8 +74,6 @@ button {
 .header {
   margin-top: 30px;
   margin-bottom: -90px;
-  /* position: absolute;
-  z-index: 10; */
 }
 
 .level-1 {
@@ -85,7 +86,6 @@ button {
   background-color: white;
   margin: auto;
   border-radius: 15px;
-  /* position: relative; */
   padding-top: 60px;
 }
 
@@ -152,11 +152,37 @@ button {
 }
 
 .main-menu {
-  margin-top: 200px;
-  margin-right: 600px;
+  margin-top: 20px;
+  margin-right: 700px;
+  position: relative;
+  white-space: nowrap;
+  margin-left: 100px;
 }
 
 .try-again {
   margin-top: 200px;
   margin-left: 600px;
+}
+
+/* how-to-play */
+.how-to-play-header {
+  width: 45%;
+}
+
+.how-to-play-container {
+  padding: 5px;
+}
+
+.main-menu-how-to-play {
+  margin-top: 45px;
+  margin-right: 400px;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.start-game-how-to-play {
+  margin-top: 45px;
+  margin-left: 520px;
+  white-space: nowrap;
+  position: relative;
 }
