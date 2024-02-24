@@ -14,7 +14,7 @@ const imageNameObj = {
 
 // variables for game
 const blankTileId = imageNameObj[3];
-const timerCounterInt = 60;
+const timerCounterInt = 3;
 let userTile;
 let otherTile;
 let userXPosition;
@@ -47,7 +47,7 @@ const turns = document.querySelector(".turns");
 const timer = document.querySelector(".timer");
 const game3x3 = document.querySelector(".game-3x3");
 
-// stretch goal: randomly generate the imgOrder
+// randomly generate the imgOrder
 // generate 9 num (from 1 to 9) that must be different
 let imgOrder = [];
 const imgOrderLength = 9;
@@ -56,10 +56,8 @@ const generateImageOrder = () => {
   let num;
   while (imgOrder.length < imgOrderLength) {
     num = Math.ceil(Math.random() * 9);
-    console.log(num);
     if (!imgOrder.includes(num)) {
       imgOrder.push(num);
-      console.log(imgOrder);
     }
   }
 };
@@ -129,13 +127,8 @@ const renderBoard = () => {
       const tile = document.createElement("img");
       const imgName = imgOrder.shift();
       tile.src = imagePath + imgName + ".jpg";
-      console.log(tile.src);
-      console.log(`imgName is ${imgName}`);
-      console.log(imageNameObj[imgName]);
       tile.id = `${imageNameObj[imgName]}`;
-      console.log(tile.id);
-
-      tile.style.width = "80px";
+      tile.style.width = "100%";
       tile.style.border = "1px solid #53a6cc";
       tile.style.display = "block";
 
@@ -200,13 +193,12 @@ const isAdjacentBottom = (divUserTileId, divOtherTileId) => {
 
 const countdownLogic = () => {
   timerCounter--;
-  timer.innerHTML = `Time: ${timerCounter} s`;
+  timer.innerHTML = `Timer: ${timerCounter} s`;
 
   // game has ended
   if (timerCounter === 0) {
     clearInterval(countdown);
     youWin();
-    console.log(`no of tiles match: ${noOfTilesMatch}`);
     if (noOfTilesMatch !== correctNoOfTilesMatch) {
       // hide game screen and display game over screen
       gameScreen.style.display = "none";
@@ -222,11 +214,8 @@ let countdown = setInterval(countdownLogic, 1000);
 
 const youWin = () => {
   for (const divTile of game3x3.children) {
-    console.log(divTile.id);
-    console.log(divTile.firstChild.id);
     if (divTile.id.slice(4) === divTile.firstChild.id) {
       noOfTilesMatch++;
-      console.log(`youWinFunction no of tiles match: ${noOfTilesMatch}`);
     }
   }
   // checks if user wins
@@ -244,8 +233,8 @@ const youWin = () => {
     const mainMenuButton = document.createElement("button");
     mainMenuButton.innerText = "<<< MAIN MENU";
     mainMenuButton.style.color = "#53a6cc";
-    mainMenuButton.style.marginTop = "250px";
-    mainMenuButton.style.marginLeft = "10px";
+    mainMenuButton.style.marginTop = "19.8%";
+    mainMenuButton.style.marginLeft = "1%";
     mainMenuButton.classList.add("luckiest-guy-regular");
     mainMenu.appendChild(mainMenuButton);
     finishedImageContainer.appendChild(mainMenu);
@@ -279,8 +268,9 @@ const youWin = () => {
     const nextLevelButton = document.createElement("button");
     nextLevelButton.innerText = "NEXT LEVEL >>>";
     nextLevelButton.style.color = "#53a6cc";
-    nextLevelButton.style.marginTop = "-40px";
-    nextLevelButton.style.marginLeft = "190px";
+    nextLevelButton.style.marginTop = "-3%";
+    nextLevelButton.style.marginLeft = "50%";
+
     // set display to none first since no next level game ready
     nextLevelButton.style.display = "none";
     nextLevelButton.classList.add("luckiest-guy-regular");
@@ -291,7 +281,6 @@ const youWin = () => {
 
 // lets user play the same image again with tiles reshuffled
 const tryAgain = () => {
-  console.log("try again clicked");
   removeAllChildNodes(game3x3); // remove the previous game div and img tiles
   generateImageOrder();
   renderBoard();
@@ -307,7 +296,7 @@ const resetGame = () => {
   imgOrder = [];
 
   turns.innerHTML = `Turns: ${turnCounter}`;
-  timer.innerHTML = `Time: ${timerCounter} s`;
+  timer.innerHTML = `Timer: ${timerCounter} s`;
   clearInterval(countdown);
   countdown = setInterval(countdownLogic, 1000);
 };
@@ -319,5 +308,4 @@ const removeAllChildNodes = (parent) => {
 };
 
 generateImageOrder();
-imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]; // for demo purpose to show you-win screen
 renderBoard();

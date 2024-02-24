@@ -61,19 +61,19 @@ button {
 }
 
 #how-to-play {
-  left: 100px;
-  bottom: 160px;
+  left: 12%;
+  top: 65%;
 }
 
 #start-game {
-  right: 100px;
-  bottom: 160px;
+  right: 12%;
+  top: 65%;
 }
 
 /* game-3x3 */
 .header {
-  margin-top: 30px;
-  margin-bottom: -90px;
+  margin-top: 1%;
+  margin-bottom: -7%;
 }
 
 .level-1 {
@@ -94,22 +94,20 @@ button {
 }
 
 .turns {
-  margin: 0px 0px 0px 100px;
+  margin: 0 0 0 10%;
   color: #53a6cc;
-  text-align: left;
 }
 
 .timer {
-  margin: 0px 100px 0px 390px;
+  margin: 0 10% 0 45%;
   color: #53a6cc;
-  text-align: right;
 }
 
 .game-3x3 {
   border: 5px solid #53a6cc;
   margin: auto;
-  margin-top: 20px;
-  width: 250px;
+  margin-top: 2%;
+  width: 28%;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -147,20 +145,20 @@ button {
 .game-over-screen h1 {
   color: #ffda00;
   -webkit-text-stroke: 1px #004d99;
-  margin-bottom: 100px;
+  margin-bottom: 10%;
   font-size: 2.8em;
 }
 
 .main-menu {
-  margin-top: 20px;
   margin-right: 700px;
+  margin-top: 2%;
+  margin-left: 5%;
   position: relative;
   white-space: nowrap;
-  margin-left: 100px;
 }
 
 .try-again {
-  margin-top: 200px;
+  margin-top: 15%;
   margin-left: 600px;
 }
 
@@ -174,15 +172,41 @@ button {
 }
 
 .main-menu-how-to-play {
-  margin-top: 30px;
-  margin-right: 400px;
   position: absolute;
   white-space: nowrap;
+  margin-top: 2.2%;
+  margin-right: 40%;
 }
 
 .start-game-how-to-play {
-  margin-top: 30px;
-  margin-left: 520px;
   white-space: nowrap;
   position: relative;
+  margin-top: 3.1%;
+  margin-left: 52%;
+}
+
+@media only screen and (max-width: 768px) {
+  #how-to-play {
+    top: 35%;
+    font-size: 1.5em;
+  }
+
+  #start-game {
+    top: 35%;
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #how-to-play {
+    top: 30%;
+    left: 5%;
+    font-size: 1.5em;
+  }
+
+  #start-game {
+    top: 30%;
+    right: 5%;
+    font-size: 1.5em;
+  }
 }

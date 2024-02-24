@@ -33,9 +33,11 @@ This toy puzzle game works similarly to the slide puzzle game where players rear
 
 ### Getting Started
 
-To play the toy puzzle game, simply open the game in your web browser and start solving the puzzle!
+To play the toy puzzle game, simply open the [game](https://odebear27.github.io/toy-puzzle/index.html) in your web browser and start solving the puzzle!
 
 ### Next Steps
+
+Implement Level 2 of game (4x4)
 
 ### Development Environment
 
