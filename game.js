@@ -1,4 +1,20 @@
-const blankTileId = "0-2";
+// object of key value pairs where key is the image file name and value is the img id
+// 3.jpg is the blank tile
+const imageNameObj = {
+  1: "0-0",
+  2: "0-1",
+  3: "0-2",
+  4: "1-0",
+  5: "1-1",
+  6: "1-2",
+  7: "2-0",
+  8: "2-1",
+  9: "2-2",
+};
+
+// variables for game
+const blankTileId = imageNameObj[3];
+const timerCounterInt = 60;
 let userTile;
 let otherTile;
 let userXPosition;
@@ -6,10 +22,18 @@ let userYPosition;
 let otherXPosition;
 let otherYPosition;
 let turnCounter = 0;
-let timerCounter = 60;
+let timerCounter = timerCounterInt;
 let noOfTilesMatch = 0;
 const correctNoOfTilesMatch = 9; // for 3x3game
 
+// variables for renderBoard()
+const gameType = "3x3";
+const row = 3;
+const col = 3;
+let imageFolder = "";
+let imageName = "";
+
+// attributes
 const gameScreen = document.querySelector(".game");
 const gameOverScreen = document.querySelector(".game-over-screen");
 const youWinScreen = document.querySelector(".you-win");
@@ -23,15 +47,22 @@ const turns = document.querySelector(".turns");
 const timer = document.querySelector(".timer");
 const game3x3 = document.querySelector(".game-3x3");
 
-const gameType = "3x3";
-const row = 3;
-const col = 3;
-let imageFolder = "";
-let imageName = "";
-
 // stretch goal: randomly generate the imgOrder
-const imgOrder = ["6", "1", "3", "2", "5", "9", "7", "8", "4"];
-// const imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+// generate 9 num (from 1 to 9) that must be different
+let imgOrder = [];
+const imgOrderLength = 9;
+
+const generateImageOrder = () => {
+  let num;
+  while (imgOrder.length < imgOrderLength) {
+    num = Math.ceil(Math.random() * 9);
+    console.log(num);
+    if (!imgOrder.includes(num)) {
+      imgOrder.push(num);
+      console.log(imgOrder);
+    }
+  }
+};
 
 // let computer choose random 3x3 imageFolder
 const randomImage = Math.floor(Math.random() * 3);
@@ -96,8 +127,14 @@ const renderBoard = () => {
       tileDiv.id = `div-${i}-${j}`;
 
       const tile = document.createElement("img");
-      tile.src = imagePath + imgOrder.shift() + ".jpg";
-      tile.id = `${i}-${j}`;
+      const imgName = imgOrder.shift();
+      tile.src = imagePath + imgName + ".jpg";
+      console.log(tile.src);
+      console.log(`imgName is ${imgName}`);
+      console.log(imageNameObj[imgName]);
+      tile.id = `${imageNameObj[imgName]}`;
+      console.log(tile.id);
+
       tile.style.width = "80px";
       tile.style.border = "1px solid #53a6cc";
       tile.style.display = "block";
@@ -169,6 +206,7 @@ const countdownLogic = () => {
   if (timerCounter === 0) {
     clearInterval(countdown);
     youWin();
+    console.log(`no of tiles match: ${noOfTilesMatch}`);
     if (noOfTilesMatch !== correctNoOfTilesMatch) {
       // hide game screen and display game over screen
       gameScreen.style.display = "none";
@@ -180,15 +218,19 @@ const countdownLogic = () => {
   }
 };
 
-const countdown = setInterval(countdownLogic, 1000);
+let countdown = setInterval(countdownLogic, 1000);
 
 const youWin = () => {
   for (const divTile of game3x3.children) {
+    console.log(divTile.id);
+    console.log(divTile.firstChild.id);
     if (divTile.id.slice(4) === divTile.firstChild.id) {
       noOfTilesMatch++;
+      console.log(`youWinFunction no of tiles match: ${noOfTilesMatch}`);
     }
   }
-  if (noOfTilesMatch === correctNoOfTilesMatch && timerCounter > 0) {
+  // checks if user wins
+  if (noOfTilesMatch === correctNoOfTilesMatch && timerCounter >= 0) {
     clearInterval(countdown);
 
     // hide game screen and display you win screen
@@ -247,7 +289,12 @@ const youWin = () => {
   }
 };
 
+// lets user play the same image again with tiles reshuffled
 const tryAgain = () => {
+  console.log("try again clicked");
+  removeAllChildNodes(game3x3); // remove the previous game div and img tiles
+  generateImageOrder();
+  renderBoard();
   gameOverScreen.style.display = "none";
   gameScreen.style.display = "block";
   resetGame();
@@ -255,13 +302,22 @@ const tryAgain = () => {
 
 const resetGame = () => {
   turnCounter = 0;
-  timerCounter = 60;
+  timerCounter = timerCounterInt;
   noOfTilesMatch = 0;
+  imgOrder = [];
 
   turns.innerHTML = `Turns: ${turnCounter}`;
-  timer.innerHTML = `Time: ${timerCounter}`;
+  timer.innerHTML = `Time: ${timerCounter} s`;
   clearInterval(countdown);
   countdown = setInterval(countdownLogic, 1000);
 };
 
+const removeAllChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+};
+
+generateImageOrder();
+imgOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]; // for demo purpose to show you-win screen
 renderBoard();
