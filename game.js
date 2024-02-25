@@ -14,7 +14,7 @@ const imageNameObj = {
 
 // variables for game
 const blankTileId = imageNameObj[3];
-const timerCounterInt = 3;
+const timerCounterInt = 60;
 let userTile;
 let otherTile;
 let userXPosition;
