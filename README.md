@@ -38,7 +38,8 @@ To play the toy puzzle game, simply open the [game](https://odebear27.github.io/
 
 ### Next Steps
 
-Implement Level 2 of game (4x4)
+- Add music
+- Implement Level 3 of game (5x5)
 
 ### Development Environment
 
