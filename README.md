@@ -24,6 +24,7 @@ This toy puzzle game works similarly to the slide puzzle game where players rear
 ![howtoplay](game-screenshots/how-to-play.png)
 ![game-3x3](game-screenshots/level-1.png)
 ![you-win](game-screenshots/you-win.png)
+![game-4x4](game-screenshots/level-2.png)
 ![game-over](game-screenshots/game-over.png)
 
 ### Technologies Used
