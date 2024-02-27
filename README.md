@@ -1,5 +1,7 @@
 ## Toy Puzzle
 
+<video src='game-video/toy-puzzle-game.mp4' width=180></video>
+
 ### Project Overview
 
 This game was created as part of my project for General Assembly's Software Engineering Immersive Unit 1 - Fundamentals of Software Engineering.
@@ -38,8 +40,9 @@ To play the toy puzzle game, simply open the [game](https://odebear27.github.io/
 
 ### Next Steps
 
-- Add music
-- Implement Level 3 of game (5x5)
+- Add music for user experience
+- Allow users to start off from the level they stopped at (eg, if they completed level 1, game starts from level 2 on refresh)
+- Implement leaderboard
 
 ### Development Environment
 
